@@ -1,0 +1,6 @@
+def solution(my_string, k):
+    answer = my_string * k
+    return answer
+
+print(solution("string", 3))
+print(solution("love", 10))
