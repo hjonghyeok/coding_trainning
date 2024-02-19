@@ -1,35 +1,22 @@
-def dfs(i, j, visited, maps, n, m):
-    global cnt
-    if i == n and j == m:
-        visited[i][j] = 1
-        return cnt
-    # if not visited[i][j] and maps[i][j]:
-    if maps[i][j] and visited[i][j] < cnt :
-        cnt += 1
-        visited[i][j] = cnt
-        print(cnt)
-        dfs(i+1, j, visited, maps, n, m)
-        dfs(i-1, j, visited, maps, n, m)
-        dfs(i, j+1, visited, maps, n, m)
-        dfs(i, j-1, visited, maps, n, m)
+from collections import deque
 
 def solution(maps):
-    n, m = len(maps), len(maps[0])
-    for i in maps:
-        i.append(0)
-        i.insert(0, 0)
-    maps.insert(0, [0] * (len(maps[0])))
-    maps.append([0] * (len(maps[0])))
-    
-    visited = [[0] * len(maps[0]) for i in range(len(maps))]
-    
-    Answers = []
-    Answers.append(dfs(1, 1, visited, maps, n, m))
-    answer = 0
-    
-    return Answers
-
-cnt = 1
-print(solution([[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,1],[0,0,0,0,1]]))
-cnt = 0
-print(solution([[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,0],[0,0,0,0,1]]))
+    n = len(maps); m = len(maps[0])
+    visited = [[False]*m for _ in range(n)]
+    maps[n-1][m-1] = -1
+    q = deque()
+    q.append((0, 0))
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+    visited[0][0]=True
+    while q:
+        y, x = q.popleft()
+        for i in range(4):
+            nx=x+dx[i]
+            ny=y+dy[i]
+            if 0<=nx<m and 0<=ny<n and maps[ny][nx] != 0:
+                if not visited[ny][nx]:
+                    visited[ny][nx] = True
+                    q.append((ny, nx))
+                    maps[ny][nx] = maps[y][x]+1
+    return maps[n-1][m-1]
