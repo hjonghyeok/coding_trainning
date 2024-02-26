@@ -1,0 +1,17 @@
+user_id, skill
+    1    python
+    2    java
+    3    python
+    4     c#
+    5     c++
+    6     c++
+    7    java
+    8     c#
+    9     c
+    10    c
+    11   java
+    12   python
+
+위 처럼 테이블이 있을때
+각 스킬별로 1명 이상 그룹으로 만들었을때
+가장 많이 만들 수 있는 그룹의 수를 구하시오
